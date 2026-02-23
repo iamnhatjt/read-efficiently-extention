@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VibeRead</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0f0f13;
+        --surface: #1a1a24;
+        --surface2: #252533;
+        --accent: #f97316;
+        --accent2: #fb923c;
+        --text: #e2e2ef;
+        --text-muted: #8888aa;
+        --border: #2e2e42;
+        --green: #22c55e;
+        --radius: 12px;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        width: 340px;
+        min-height: 480px;
+        overflow: hidden;
+      }
+
+      /* ── Header ─────────────────────────────────────────────────── */
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 20px 14px;
+        border-bottom: 1px solid var(--border);
+        background: linear-gradient(135deg, #1a1a24 0%, #12121a 100%);
+      }
+      .logo-mark {
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+        color: #fff;
+        box-shadow: 0 4px 14px rgba(249, 115, 22, 0.4);
+        flex-shrink: 0;
+      }
+      .logo-text {
+        line-height: 1.1;
+      }
+      .logo-text h1 {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.3px;
+      }
+      .logo-text span {
+        font-size: 10px;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      /* ── WPM Badge ── */
+      .wpm-badge {
+        margin-left: auto;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 4px 10px;
+        text-align: center;
+        cursor: pointer;
+      }
+      .wpm-badge .val {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+      .wpm-badge .lbl {
+        font-size: 9px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      /* ── Body ───────────────────────────────────────────────────── */
+      .body {
+        padding: 14px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      /* Hero button */
+      .btn-hero {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        padding: 14px 16px;
+        background: linear-gradient(135deg, var(--accent) 0%, #ea580c 100%);
+        border: none;
+        border-radius: var(--radius);
+        color: #fff;
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        font-size: 13.5px;
+        cursor: pointer;
+        text-align: left;
+        box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35);
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.12) 0%,
+          transparent 60%
+        );
+        pointer-events: none;
+      }
+      .btn-hero:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 28px rgba(249, 115, 22, 0.5);
+      }
+      .btn-hero:active {
+        transform: translateY(0);
+      }
+      .btn-hero .ico {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .btn-hero .meta {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+      }
+      .btn-hero .sub {
+        font-size: 10.5px;
+        font-weight: 400;
+        opacity: 0.8;
+      }
+
+      /* Regular action button */
+      .btn-action {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+        padding: 11px 14px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: left;
+        transition:
+          background 0.15s,
+          border-color 0.15s,
+          transform 0.1s;
+      }
+      .btn-action:hover {
+        background: var(--surface2);
+        border-color: var(--accent);
+        transform: translateX(2px);
+      }
+      .btn-action .ico {
+        font-size: 16px;
+        width: 20px;
+        text-align: center;
+        flex-shrink: 0;
+      }
+      .btn-action .badge {
+        margin-left: auto;
+        font-size: 9px;
+        font-weight: 600;
+        background: var(--surface2);
+        border: 1px solid var(--border);
+        padding: 2px 7px;
+        border-radius: 20px;
+        color: var(--text-muted);
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+      .btn-action .badge.hot {
+        background: rgba(249, 115, 22, 0.15);
+        border-color: rgba(249, 115, 22, 0.3);
+        color: var(--accent);
+      }
+
+      /* Divider */
+      .divider {
+        height: 1px;
+        background: var(--border);
+        margin: 2px 0;
+      }
+
+      /* Row of icon buttons */
+      .row-btns {
+        display: flex;
+        gap: 6px;
+      }
+      .row-btns .btn-action {
+        flex: 1;
+        justify-content: center;
+        padding: 10px;
+      }
+      .row-btns .btn-action .ico {
+        width: auto;
+      }
+      .row-btns .btn-action span {
+        font-size: 11px;
+      }
+
+      /* ── Footer ─────────────────────────────────────────────────── */
+      .footer {
+        padding: 10px 16px 10px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      /* ── Signature ───────────────────────────────────────────────── */
+      .signature {
+        text-align: center;
+        padding: 6px 16px 10px;
+        font-size: 9.5px;
+        color: var(--text-muted);
+        letter-spacing: 0.3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        transition: color 0.2s;
+      }
+      .signature:hover { color: var(--accent); }
+      .signature .author-avatar {
+        width: 18px; height: 18px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1.5px solid var(--border);
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .signature:hover .author-avatar {
+        border-color: var(--accent);
+        box-shadow: 0 0 8px rgba(249,115,22,.35);
+      }
+      .signature .heart {
+        color: var(--accent);
+        font-size: 10px;
+        animation: heartbeat 1.8s ease-in-out infinite;
+      }
+      @keyframes heartbeat {
+        0%, 100% { transform: scale(1); }
+        14%       { transform: scale(1.25); }
+        28%       { transform: scale(1); }
+        42%       { transform: scale(1.15); }
+        56%       { transform: scale(1); }
+      }
+      .contact-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        padding: 0 16px 10px;
+        font-size: 9px;
+        color: var(--text-muted);
+        text-decoration: none;
+        letter-spacing: 0.3px;
+        transition: color 0.2s;
+      }
+      .contact-link:hover { color: var(--accent); }
+      .contact-link .mail-ico { font-size: 11px; }
+      .stat-chip {
+        flex: 1;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 6px 10px;
+        text-align: center;
+      }
+      .stat-chip .val {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text);
+      }
+      .stat-chip .lbl {
+        font-size: 9px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+
+      /* Tooltip */
+      [title] {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <div class="logo-mark">V</div>
+      <div class="logo-text">
+        <h1>VibeRead</h1>
+        <span>Speed Reader &amp; PDF — v1.0</span>
+      </div>
+      <div class="wpm-badge" id="wpmBadge" title="Click to change speed">
+        <div class="val" id="wpmVal">300</div>
+        <div class="lbl">WPM</div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="body">
+      <!-- Hero: Open current page -->
+      <button class="btn-hero" id="btnReadPage">
+        <span class="ico">⚡</span>
+        <span class="meta">
+          <span>VibeRead This Page</span>
+          <span class="sub">Auto-extract &amp; speed-read the current tab</span>
+        </span>
+        <span
+          class="badge hot"
+          style="
+            margin-left: auto;
+            font-size: 9px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 2px 7px;
+            border-radius: 20px;
+            color: #fff;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+          "
+          >Alt+V</span
+        >
+      </button>
+
+      <!-- PDF Reader -->
+      <button class="btn-action" id="btnOpenPdf">
+        <span class="ico">📄</span>
+        <span>Open PDF Reader</span>
+        <span class="badge hot">NEW</span>
+      </button>
+
+      <!-- Paste text -->
+      <button class="btn-action" id="btnPasteText">
+        <span class="ico">📋</span>
+        <span>Paste Text</span>
+      </button>
+
+      <!-- Kindle -->
+      <button class="btn-action" id="btnKindle">
+        <span class="ico">📚</span>
+        <span>Kindle Cloud Reader</span>
+        <span class="badge">bonus</span>
+      </button>
+
+      <div class="divider"></div>
+
+      <div class="row-btns">
+        <button class="btn-action" id="btnSettings">
+          <span class="ico">⚙️</span>
+          <span>Settings</span>
+        </button>
+        <button class="btn-action" id="btnStats">
+          <span class="ico">📊</span>
+          <span>Statistics</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer stats -->
+    <div class="footer">
+      <div class="stat-chip">
+        <div class="val" id="statWords">0</div>
+        <div class="lbl">Words Read</div>
+      </div>
+      <div class="stat-chip">
+        <div class="val" id="statSessions">0</div>
+        <div class="lbl">Sessions</div>
+      </div>
+      <div class="stat-chip">
+        <div class="val" id="statStreak">0🔥</div>
+        <div class="lbl">Day Streak</div>
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature">
+      <img src="icons/author.jpg" alt="Sunny Trinh" class="author-avatar" />
+      <span>Made with</span>
+      <span class="heart">♥</span>
+      <span>by <strong style="color:var(--text);font-weight:600">Sunny Trinh</strong></span>
+    </div>
+    <a href="mailto:iamnhatjt@gmail.com" class="contact-link" title="Contact me">
+      <span class="mail-ico">✉</span>
+      <span>iamnhatjt@gmail.com</span>
+    </a>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
