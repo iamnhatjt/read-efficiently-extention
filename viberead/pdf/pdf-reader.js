@@ -252,7 +252,28 @@ async function loadPDF(file) {
 
       const page = await pdf.getPage(pg);
       const content = await page.getTextContent();
-      const pageText = content.items.map((i) => i.str).join(" ");
+
+      // Smart text joining: use x-position gaps to detect word boundaries
+      // instead of blindly joining with spaces (which splits each letter).
+      let pageText = "";
+      let prevItem = null;
+      for (const item of content.items) {
+        if (!item.str) continue;
+        if (prevItem) {
+          // transform[4] = x position, transform[0] = font scale (approx font size)
+          const prevX = prevItem.transform[4] + prevItem.width;
+          const curX = item.transform[4];
+          const fontSize = Math.abs(item.transform[0]) || 12;
+          // If there's a meaningful gap (> 15% of font size), or a line break → space
+          const gap = curX - prevX;
+          if (item.hasEOL || prevItem.hasEOL || gap > fontSize * 0.15) {
+            pageText += " ";
+          }
+        }
+        pageText += item.str;
+        prevItem = item;
+      }
+
       const words = pageText.split(/\s+/).filter((w) => w.length > 0);
 
       st.pageWordStart.push(st.allWords.length);
