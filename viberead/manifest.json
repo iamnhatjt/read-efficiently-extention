@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "VibeRead — Speed Reader & PDF",
   "short_name": "VibeRead",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RSVP speed-reading with native PDF support, auto-resume, and beautiful dark UI.",
   "permissions": ["storage", "activeTab", "scripting", "tabs"],
   "host_permissions": ["<all_urls>"],
